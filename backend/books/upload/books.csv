@@ -1,0 +1,4 @@
+book_no,title,author,date_of_issue,quantity,publisher,vol,published_year,bill_no,price,catelog_no,remarks
+B001,Digital Electronics,Morris Mano,2025-01-10,10,Pearson,1,2015-01-01,BILL1001,500.00,CAT001,Fundamental reference
+B002,Power Systems,C.L. Wadhwa,2025-02-05,5,McGraw Hill,2,2016-01-01,BILL1002,750.00,CAT002,Advanced concepts
+B003,Control Systems,Nagrath & Gopal,2025-03-12,7,Oxford Press,1,2017-01-01,BILL1003,600.00,CAT003,For engineering students
