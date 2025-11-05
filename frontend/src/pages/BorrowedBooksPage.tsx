@@ -7,38 +7,6 @@ import PageHeader from "@/components/PageHeader";
 import type { Book } from "@/types/teacherTypes";
 import { getBorrowedBooks } from "@/api/teacherApi";
 
-// Mock data for demo - only borrowed books
-// const mockBorrowedBooks: Book[] = [
-//   {
-//     id: 1,
-//     title: "To Kill a Mockingbird",
-//     author: "Harper Lee",
-//     isbn: "978-0-06-112008-4",
-//     total_quantity: 5,
-//     available_quantity: 2,
-//     borrowed_by: [
-//       { student_id: "S101", student_name: "Alice Johnson", borrow_date: "2024-09-10" },
-//       { student_id: "S102", student_name: "Bob Smith", borrow_date: "2024-09-12" },
-//       { student_id: "S103", student_name: "Carol Davis", borrow_date: "2024-09-14" }
-//     ]
-//   },
-//   {
-//     id: 2,
-//     title: "1984",
-//     author: "George Orwell",
-//     isbn: "978-0-452-28423-4",
-//     total_quantity: 4,
-//     available_quantity: 2,
-//     borrowed_by: [
-//       { student_id: "S104", student_name: "David Lee", borrow_date: "2024-09-11" },
-//       { student_id: "S105", student_name: "Eva Green", borrow_date: "2024-09-13" }
-//     ]
-//   }
-// ];
-
-
-
-
 
 export default function BorrowedBooksPage() {
   const [borrowedBooks, setBorrowedBooks] = useState<Book[]>([]);
