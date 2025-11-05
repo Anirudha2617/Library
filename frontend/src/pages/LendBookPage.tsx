@@ -87,119 +87,135 @@ export default function LendBookPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <PageHeader 
-        title="Lend Book" 
-        description="Issue books to students"
-      />
+ <div className="min-h-screen bg-gray-50">
+  <PageHeader 
+    title="Lend Book" 
+    description="Issue books to students"
+  />
 
-      <div className="p-6 max-w-2xl mx-auto">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Plus className="w-5 h-5 text-primary" />
-              <span>Issue New Book</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {success && (
-              <Alert className="mb-6 border-accent text-accent-foreground bg-accent/10">
-                <CheckCircle className="w-4 h-4" />
-                <AlertDescription>{success}</AlertDescription>
-              </Alert>
+  <div className="p-6 max-w-2xl mx-auto space-y-6">
+    {/* Lend Book Card */}
+    <Card className="shadow-lg border border-gray-200 rounded-xl">
+      <CardHeader>
+        <CardTitle className="flex items-center space-x-2 text-lg font-semibold">
+          <Plus className="w-5 h-5 text-primary" />
+          <span>Issue New Book</span>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        {success && (
+          <Alert className="mb-6 border-l-4 border-accent text-accent-foreground bg-accent/10 rounded-lg">
+            <CheckCircle className="w-5 h-5 mr-2" />
+            <AlertDescription>{success}</AlertDescription>
+          </Alert>
+        )}
+
+        <form onSubmit={handleLendBook} className="space-y-6">
+          {/* Student Search */}
+          <div className="space-y-2">
+            <Label htmlFor="studentId" className="flex items-center space-x-2 text-sm font-medium">
+              <User className="w-4 h-4 text-gray-600" />
+              <span>Student Search</span>
+            </Label>
+            <AutocompleteInput
+              type="student"
+              placeholder="Search by student ID or name..."
+              value={studentId}
+              onChange={(val: string) => {
+                setStudentId(val);
+                setSelectedStudent(null);
+              }}
+              onSelect={(student: any) => {
+                setSelectedStudent(student);
+                setStudentId(student.student_id);
+              }}
+              searchFunction={searchStudents}
+              className="w-full rounded-md border border-gray-300 focus:border-primary focus:ring-1 focus:ring-primary px-3 py-2 text-sm"
+            />
+            {selectedStudent && (
+              <div className="p-3 mt-2 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all">
+                <p className="font-medium text-gray-800">{selectedStudent.student_name}</p>
+                <p className="text-sm text-gray-500">
+                  {selectedStudent.student_id} • Class {selectedStudent.class} • 
+                  {selectedStudent.books_to_return} borrowed
+                </p>
+              </div>
             )}
+          </div>
 
-            <form onSubmit={handleLendBook} className="space-y-6">
-              {/* Student Search */}
-              <div className="space-y-2">
-                <Label htmlFor="studentId" className="flex items-center space-x-2">
-                  <User className="w-4 h-4" />
-                  <span>Student Search</span>
-                </Label>
-                <AutocompleteInput
-                  type="student"
-                  placeholder="Search by student ID or name..."
-                  value={studentId}
-                  onChange={setStudentId}
-                  onSelect={setSelectedStudent}
-                  searchFunction={searchStudents}
-                />
-                {selectedStudent && (
-                  <div className="p-3 bg-accent/20 rounded-lg border">
-                    <p className="font-medium text-foreground">{selectedStudent.student_name}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {selectedStudent.student_id} • Class {selectedStudent.class} • 
-                      {selectedStudent.books_to_return} currently borrowed
-                    </p>
-                  </div>
-                )}
+          {/* Book Search */}
+          <div className="space-y-2">
+            <Label htmlFor="bookQuery" className="flex items-center space-x-2 text-sm font-medium">
+              <BookOpen className="w-4 h-4 text-gray-600" />
+              <span>Book Search</span>
+            </Label>
+            <AutocompleteInput
+              type="book"
+              placeholder="Search by title, author, or ISBN..."
+              value={bookQuery}
+              onChange={(val: string) => {
+                setBookQuery(val);
+                setSelectedBook(null);
+              }}
+              onSelect={(book: any) => {
+                setSelectedBook(book);
+                setBookQuery(book.title);
+              }}
+              searchFunction={searchBooks}
+              className="w-full rounded-md border border-gray-300 focus:border-primary focus:ring-1 focus:ring-primary px-3 py-2 text-sm"
+            />
+            {selectedBook && (
+              <div className="p-3 mt-2 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all">
+                <p className="font-medium text-gray-800">{selectedBook.title}</p>
+                <p className="text-sm text-gray-500">
+                  by {selectedBook.author} • 
+                  <span className={selectedBook.available_quantity === 0 ? "text-red-600 font-semibold" : "text-green-600"}>
+                    {selectedBook.available_quantity} available
+                  </span>
+                  {selectedBook.available_quantity === 0 && " (Out of Stock)"}
+                </p>
               </div>
+            )}
+          </div>
 
-              {/* Book Search */}
-              <div className="space-y-2">
-                <Label htmlFor="bookQuery" className="flex items-center space-x-2">
-                  <BookOpen className="w-4 h-4" />
-                  <span>Book Search</span>
-                </Label>
-                <AutocompleteInput
-                  type="book"
-                  placeholder="Search by title, author, or ISBN..."
-                  value={bookQuery}
-                  onChange={setBookQuery}
-                  onSelect={setSelectedBook}
-                  searchFunction={searchBooks}
-                />
-                {selectedBook && (
-                  <div className="p-3 bg-accent/20 rounded-lg border">
-                    <p className="font-medium text-foreground">{selectedBook.title}</p>
-                    <p className="text-sm text-muted-foreground">
-                      by {selectedBook.author} • 
-                      <span className={selectedBook.available_quantity === 0 ? "text-destructive font-medium" : "text-accent"}>
-                        {selectedBook.available_quantity} available
-                      </span>
-                      {selectedBook.available_quantity === 0 && " (Out of Stock)"}
-                    </p>
-                  </div>
-                )}
-              </div>
+          <Button 
+            type="submit" 
+            className="w-full flex justify-center items-center space-x-2 bg-primary hover:bg-primary-dark text-white font-medium rounded-lg py-3"
+            size="lg"
+            disabled={loading || !selectedStudent || !selectedBook || selectedBook?.available_quantity === 0}
+          >
+            {loading ? (
+              <>
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <span>Processing...</span>
+              </>
+            ) : (
+              <>
+                <Plus className="w-4 h-4" />
+                <span>Lend Book</span>
+              </>
+            )}
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
 
-              <Button 
-                type="submit" 
-                className="w-full" 
-                size="lg"
-                disabled={loading || !selectedStudent || !selectedBook || selectedBook?.available_quantity === 0}
-              >
-                {loading ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin mr-2" />
-                    Processing...
-                  </>
-                ) : (
-                  <>
-                    <Plus className="w-4 h-4 mr-2" />
-                    Lend Book
-                  </>
-                )}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
+    {/* Quick Tips */}
+    <Card className="shadow-lg border border-gray-200 rounded-xl">
+      <CardHeader>
+        <CardTitle className="text-lg font-semibold">Quick Tips</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ul className="space-y-2 text-sm text-gray-500 list-disc list-inside">
+          <li>Student IDs are case-sensitive (e.g., S101, not s101)</li>
+          <li>You can search books by partial title or author name</li>
+          <li>ISBN search requires the complete number</li>
+          <li>Books are automatically due OVERDUE_DAYS_LIMIT days from today</li>
+        </ul>
+      </CardContent>
+    </Card>
+  </div>
+</div>
 
-        {/* Quick Tips */}
-        <Card className="mt-6">
-          <CardHeader>
-            <CardTitle className="text-lg">Quick Tips</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>• Student IDs are case-sensitive (e.g., S101, not s101)</li>
-              <li>• You can search books by partial title or author name</li>
-              <li>• ISBN search requires the complete number</li>
-              <li>• Books are automatically due OVERDUE_DAYS_LIMIT days from today</li>
-            </ul>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
   );
 }
