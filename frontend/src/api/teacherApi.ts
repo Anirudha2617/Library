@@ -10,32 +10,6 @@ import type {
   Borrow,
 } from "@/types/teacherTypes";
 
-// Mock Data
-// let mockBooks: Book[] = [
-//   { id: 1, title: "To Kill a Mockingbird", author: "Harper Lee", isbn: "978-0-06-112008-4", total_quantity: 5, available_quantity: 2, borrowed_by: [{ student_id: "S101", student_name: "Alice Johnson", borrow_date: "2024-09-10" }] },
-//   { id: 2, title: "1984", author: "George Orwell", isbn: "978-0-452-28423-4", total_quantity: 4, available_quantity: 0, borrowed_by: [{ student_id: "S104", student_name: "David Lee", borrow_date: "2024-09-11" }] },
-//   { id: 3, title: "Pride and Prejudice", author: "Jane Austen", isbn: "978-0-14-143951-8", total_quantity: 3, available_quantity: 3, borrowed_by: [] },
-//   { id: 4, title: "The Great Gatsby", author: "F. Scott Fitzgerald", isbn: "978-0-7432-7356-5", total_quantity: 6, available_quantity: 1, borrowed_by: [{ student_id: "S102", student_name: "Bob Smith", borrow_date: "2024-09-12" }] },
-//   { id: 5, title: "The Catcher in the Rye", author: "J.D. Salinger", isbn: "978-0-316-76948-0", total_quantity: 4, available_quantity: 0, borrowed_by: [{ student_id: "S103", student_name: "Carol Davis", borrow_date: "2024-09-14" }] },
-//   { id: 6, title: "Lord of the Flies", author: "William Golding", isbn: "978-0-571-05686-2", total_quantity: 5, available_quantity: 2, borrowed_by: [{ student_id: "S105", student_name: "Eva Green", borrow_date: "2024-09-13" }] },
-//   { id: 7, title: "Animal Farm", author: "George Orwell", isbn: "978-0-452-28424-1", total_quantity: 3, available_quantity: 0, borrowed_by: [{ student_id: "S106", student_name: "Frank Miller", borrow_date: "2024-09-15" }] },
-//   { id: 8, title: "Brave New World", author: "Aldous Huxley", isbn: "978-0-06-085052-4", total_quantity: 4, available_quantity: 1, borrowed_by: [{ student_id: "S107", student_name: "Grace Wilson", borrow_date: "2024-09-16" }] },
-//   { id: 9, title: "The Hobbit", author: "J.R.R. Tolkien", isbn: "978-0-547-92822-7", total_quantity: 7, available_quantity: 3, borrowed_by: [{ student_id: "S108", student_name: "Henry Brown", borrow_date: "2024-09-17" }] },
-//   { id: 10, title: "Harry Potter and the Sorcerer's Stone", author: "J.K. Rowling", isbn: "978-0-439-70818-8", total_quantity: 8, available_quantity: 0, borrowed_by: [{ student_id: "S109", student_name: "Isabel Clark", borrow_date: "2024-09-18" }] }
-// ];
-
-// const mockStudents = [
-//   { student_id: "S101", student_name: "Alice Johnson", class: "10A", books_to_return: 3, books_returned: 12 },
-//   { student_id: "S102", student_name: "Bob Smith", class: "10B", books_to_return: 2, books_returned: 8 },
-//   { student_id: "S103", student_name: "Carol Davis", class: "10A", books_to_return: 1, books_returned: 15 },
-//   { student_id: "S104", student_name: "David Lee", class: "11A", books_to_return: 4, books_returned: 6 },
-//   { student_id: "S105", student_name: "Eva Green", class: "11B", books_to_return: 2, books_returned: 10 },
-//   { student_id: "S106", student_name: "Frank Miller", class: "12A", books_to_return: 1, books_returned: 20 },
-//   { student_id: "S107", student_name: "Grace Wilson", class: "12B", books_to_return: 3, books_returned: 14 },
-//   { student_id: "S108", student_name: "Henry Brown", class: "10A", books_to_return: 2, books_returned: 9 },
-//   { student_id: "S109", student_name: "Isabel Clark", class: "11A", books_to_return: 1, books_returned: 11 },
-//   { student_id: "S110", student_name: "Jack Davis", class: "10B", books_to_return: 0, books_returned: 7 }
-// ];
 
 let mockBooks: Book[];
 
@@ -43,7 +17,7 @@ let mockStudents: Student[];
 
 let borrowedBooks: Borrow[];
 
-const BASE_URL = "http://127.0.0.1:8000/"
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 // Simulate 2-second delay for all API calls
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
