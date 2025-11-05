@@ -43,20 +43,3 @@ def book_issues(request, book_id):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
-def borrowed_books(request):
-    """
-    Returns books that are currently borrowed (at least one copy issued).
-    """
-    # Books that have at least one active issue (not returned)
-    borrowed_book_ids = (
-        issues.objects
-        .filter(return_date__isnull=True)
-        .values_list('book_id', flat=True)
-        .distinct()
-    )
-
-    borrowed_books = Books.objects.filter(id__in=borrowed_book_ids)
-
-    serializer = BorrowSerializer(borrowed_books, many=True)
-    return Response(serializer.data, status=status.HTTP_200_OK)
